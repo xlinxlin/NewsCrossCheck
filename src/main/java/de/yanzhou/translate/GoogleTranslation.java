@@ -18,7 +18,7 @@ public class GoogleTranslation {
   /**
    * Set up logger for GoogleTranslation Class.
    */
-  public static final Logger logger = LogManager.getLogger(GoogleTranslation.class);
+  private static final Logger logger = LogManager.getLogger(GoogleTranslation.class);
 
   /**
    *  Set up Google translation service by using Google API Key.

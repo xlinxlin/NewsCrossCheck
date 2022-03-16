@@ -16,7 +16,7 @@ public class AdFontesMediaCrawler {
   /**
    * Set up logger for AdFontesMediaCrawler Class.
    */
-  public static final Logger logger = LogManager.getLogger(AdFontesMediaCrawler.class);
+  private static final Logger logger = LogManager.getLogger(AdFontesMediaCrawler.class);
 
   /**
    * Get reliability score and bias score by giving media name.
@@ -24,7 +24,7 @@ public class AdFontesMediaCrawler {
    * @return AdFontesMediaModel stores media name, reliability score and bias score.
    */
   public AdFontesMediaModel crawler(String mediaName)  {
-    HttpURLConnection connection = null;
+    HttpURLConnection connection;
     String url = buildMediaUrl(mediaName);
     AdFontesMediaModel afm = new AdFontesMediaModel();
     try {

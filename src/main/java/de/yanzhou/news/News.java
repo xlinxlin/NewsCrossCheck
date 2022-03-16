@@ -22,7 +22,7 @@ public class News {
   /**
    * Set up logger for News Class.
    */
-  public static final Logger logger = LogManager.getLogger(News.class);
+  private static final Logger logger = LogManager.getLogger(News.class);
 
   /**
    * Set up newsapi search address.
