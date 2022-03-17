@@ -33,11 +33,13 @@ public class AdFontesMediaCrawler {
       int responseCode = connection.getResponseCode();
       if (responseCode == 200) {
         Document doc = Jsoup.connect(url).get();
-        String reliabilityText = doc.select("p strong").get(2).toString();
-        String biasText = doc.select("p strong").get(3).toString();
-        afm.setMediaName(mediaName);
-        afm.setReliabilityScore(getScore(reliabilityText));
-        afm.setBiasScore(getScore(biasText));
+        if (!doc.select("p strong").isEmpty()){
+          String reliabilityText = doc.select("p strong").get(2).toString();
+          String biasText = doc.select("p strong").get(3).toString();
+          afm.setMediaName(mediaName);
+          afm.setReliabilityScore(getScore(reliabilityText));
+          afm.setBiasScore(getScore(biasText));
+        }
       }
     } catch (IOException e) {
       logger.error("IOException in AdFontesMediaCrawler Class. " + e.getMessage(), e.getCause());
