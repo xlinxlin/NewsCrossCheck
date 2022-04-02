@@ -26,7 +26,7 @@ public class Dictionary {
    * @return True if the word is noun, or it is a special word.
    */
   public Boolean getWord(String word)  {
-    boolean isWordNoun = false;
+    boolean isWordNounOrVerb = false;
     String uri = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
@@ -45,12 +45,13 @@ public class Dictionary {
       JSONObject jsonObject = jsonArray.getJSONObject(0);
       JSONArray jsonArrayMeaning = (JSONArray) jsonObject.get("meanings");
       for (int i = 0; i < jsonArrayMeaning.length(); i++) {
-        isWordNoun = jsonArrayMeaning.getJSONObject(i).get("partOfSpeech").equals("noun");
-        if (isWordNoun)  break;
+        isWordNounOrVerb = jsonArrayMeaning.getJSONObject(i).get("partOfSpeech").equals("noun") ||
+                jsonArrayMeaning.getJSONObject(i).get("partOfSpeech").equals("verb");
+        if (isWordNounOrVerb)  break;
       }
     } else {
-      isWordNoun = true;
+      isWordNounOrVerb = true;
     }
-    return isWordNoun;
+    return isWordNounOrVerb;
   }
 }

@@ -35,7 +35,8 @@ public class News {
    * @return The articles information which are stored in a JSONArray.
    */
   public JSONArray getNews(String newsTitle)  {
-    String uri = NEWS_API_SEARCH_ADDRESS + newsTitle +"&from=" + buildDate() + "&sortBy=publishedAt&apiKey=" + getNewsApiKey();
+    String uri = NEWS_API_SEARCH_ADDRESS + newsTitle +"&from=" + buildDate() + "&searchIn=title&sortBy=publishedAt&apiKey=" + getNewsApiKey();
+    System.out.println(uri);
     HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(uri))
@@ -65,7 +66,7 @@ public class News {
   private String buildDate(){
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MONTH, -1);
+    calendar.add(Calendar.DATE, -2);
     return format.format(calendar.getTime());
   }
 

@@ -26,25 +26,28 @@ public class AdFontesMediaCrawler {
   public AdFontesMediaModel crawler(String mediaName)  {
     HttpURLConnection connection;
     String url = buildMediaUrl(mediaName);
-    AdFontesMediaModel afm = new AdFontesMediaModel();
     try {
       connection = (HttpURLConnection) new URL(url).openConnection();
       connection.setRequestMethod("HEAD");
       int responseCode = connection.getResponseCode();
       if (responseCode == 200) {
         Document doc = Jsoup.connect(url).get();
-        if (!doc.select("p strong").isEmpty()){
+        if (doc.select("p strong").size() > 3){
           String reliabilityText = doc.select("p strong").get(2).toString();
+          System.out.println(mediaName +" reliability:" + reliabilityText);
           String biasText = doc.select("p strong").get(3).toString();
+          System.out.println(mediaName +" bias:" + biasText);
+          AdFontesMediaModel afm = new AdFontesMediaModel();
           afm.setMediaName(mediaName);
           afm.setReliabilityScore(getScore(reliabilityText));
           afm.setBiasScore(getScore(biasText));
+          return afm;
         }
       }
     } catch (IOException e) {
       logger.error("IOException in AdFontesMediaCrawler Class. " + e.getMessage(), e.getCause());
     }
-    return afm;
+    return null;
   }
 
   /**
